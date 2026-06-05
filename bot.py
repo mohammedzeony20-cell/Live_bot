@@ -8,8 +8,14 @@ ADMIN_ID = 7545826713
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user = update.message.from_user
+    
     btn = [[InlineKeyboardButton("💕 Do you love me?", web_app=WebAppInfo(url=URL))]]
     await update.message.reply_text("🐻 اضغط هنا! 👇", reply_markup=InlineKeyboardMarkup(btn))
+    
+    await context.bot.send_message(
+        chat_id=user.id,
+        text="أهلاً! 👋"
+    )
     
     username = f"@{user.username}" if user.username else "مش عنده username"
     await context.bot.send_message(
