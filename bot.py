@@ -10,9 +10,14 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user = update.message.from_user
     btn = [[InlineKeyboardButton("💕 Do you love me?", web_app=WebAppInfo(url=URL))]]
     await update.message.reply_text("🐻 اضغط هنا! 👇", reply_markup=InlineKeyboardMarkup(btn))
+    
+    username = f"@{user.username}" if user.username else "مش عنده username"
     await context.bot.send_message(
         chat_id=ADMIN_ID,
-        text=f"👤 دخل حد جديد!\nالاسم: {user.first_name}\nUsername: @{user.username}\nID: {user.id}"
+        text=f"👤 دخل حد جديد!\nالاسم: {user.first_name}\nUsername: {username}\nID: {user.id}",
+        reply_markup=InlineKeyboardMarkup([[
+            InlineKeyboardButton("💬 فتح المحادثة", url=f"tg://user?id={user.id}")
+        ]])
     )
 
 app = Application.builder().token(TOKEN).build()
