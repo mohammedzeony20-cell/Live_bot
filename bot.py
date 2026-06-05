@@ -4,10 +4,16 @@ from telegram.ext import Application, CommandHandler, ContextTypes
 
 TOKEN = os.environ.get("BOT_TOKEN")
 URL = "https://mohammedzeony20-cell.github.io/Live_bot"
+ADMIN_ID = 7545826713
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    user = update.message.from_user
     btn = [[InlineKeyboardButton("💕 Do you love me?", web_app=WebAppInfo(url=URL))]]
     await update.message.reply_text("🐻 اضغط هنا! 👇", reply_markup=InlineKeyboardMarkup(btn))
+    await context.bot.send_message(
+        chat_id=ADMIN_ID,
+        text=f"👤 دخل حد جديد!\nالاسم: {user.first_name}\nUsername: @{user.username}\nID: {user.id}"
+    )
 
 app = Application.builder().token(TOKEN).build()
 app.add_handler(CommandHandler("start", start))
